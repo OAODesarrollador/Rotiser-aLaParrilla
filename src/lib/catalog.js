@@ -201,3 +201,119 @@ export async function getProductById(id) {
         return null;
     }
 }
+
+/**
+ * Obtener todos los combos - para admin
+ */
+export async function fetchAllCombos() {
+    try {
+        const allCombos = await db.select().from(combos).orderBy(combos.name);
+        return allCombos.map(c => ({
+            id: c.id,
+            nombre: c.name,
+            descripcion: c.description,
+            precio: c.price,
+            items: c.items,
+            imagen: c.image,
+            destacado: c.highlighted
+        }));
+    } catch (error) {
+        console.error("Error fetching all combos:", error);
+        return [];
+    }
+}
+
+/**
+ * Crear nuevo combo
+ */
+export async function createCombo(data) {
+    try {
+        const { id, nombre, descripcion, precio, items, imagen, destacado = false } = data;
+
+        if (!id || id.trim() === '') throw new Error('El ID es requerido');
+        if (!nombre || nombre.trim() === '') throw new Error('El nombre es requerido');
+        if (precio === undefined || isNaN(precio) || precio < 0) throw new Error('El precio debe ser un número válido');
+
+        await db.insert(combos).values({
+            id: id.trim(),
+            name: nombre.trim(),
+            description: descripcion?.trim() || null,
+            price: parseInt(precio),
+            items: items?.trim() || null,
+            image: imagen?.trim() || null,
+            highlighted: destacado
+        });
+
+        return { success: true };
+    } catch (error) {
+        console.error("Error creating combo:", error);
+        throw error;
+    }
+}
+
+/**
+ * Actualizar combo existente
+ */
+export async function updateCombo(id, data) {
+    try {
+        const { nombre, descripcion, precio, items, imagen, destacado } = data;
+
+        if (!id || id.trim() === '') throw new Error('El ID es requerido');
+        if (nombre !== undefined && nombre.trim() === '') throw new Error('El nombre no puede estar vacío');
+        if (precio !== undefined && (isNaN(precio) || precio < 0)) throw new Error('El precio debe ser un número válido');
+
+        const updates = {};
+        if (nombre !== undefined) updates.name = nombre.trim();
+        if (descripcion !== undefined) updates.description = descripcion?.trim() || null;
+        if (precio !== undefined) updates.price = parseInt(precio);
+        if (items !== undefined) updates.items = items?.trim() || null;
+        if (imagen !== undefined) updates.image = imagen?.trim() || null;
+        if (destacado !== undefined) updates.highlighted = destacado;
+
+        await db.update(combos)
+            .set(updates)
+            .where(eq(combos.id, id.trim()));
+
+        return { success: true };
+    } catch (error) {
+        console.error("Error updating combo:", error);
+        throw error;
+    }
+}
+
+/**
+ * Eliminar combo
+ */
+export async function deleteCombo(id) {
+    try {
+        await db.delete(combos).where(eq(combos.id, id.trim()));
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting combo:", error);
+        throw error;
+    }
+}
+
+/**
+ * Obtener un combo por ID
+ */
+export async function getComboById(id) {
+    try {
+        const result = await db.select().from(combos).where(eq(combos.id, id.trim())).limit(1);
+        if (result.length === 0) return null;
+
+        const c = result[0];
+        return {
+            id: c.id,
+            nombre: c.name,
+            descripcion: c.description,
+            precio: c.price,
+            items: c.items,
+            imagen: c.image,
+            destacado: c.highlighted
+        };
+    } catch (error) {
+        console.error("Error fetching combo:", error);
+        return null;
+    }
+}

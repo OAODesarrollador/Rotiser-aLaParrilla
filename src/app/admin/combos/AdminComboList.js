@@ -2,33 +2,31 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ProductEditor from '@/components/business/ProductEditor';
-import styles from './AdminProductList.module.css';
+import ComboEditor from '@/components/business/ComboEditor';
+import styles from './AdminComboList.module.css';
 
-export default function AdminProductList() {
-    const [products, setProducts] = useState([]);
+export default function AdminComboList() {
+    const [combos, setCombos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filterCategory, setFilterCategory] = useState('');
     const [message, setMessage] = useState('');
     const router = useRouter();
 
-    // Cargar productos
     useEffect(() => {
-        fetchProducts();
+        fetchCombos();
     }, []);
 
-    const fetchProducts = async () => {
+    const fetchCombos = async () => {
         try {
             setLoading(true);
-            const response = await fetch('/api/admin/products');
+            const response = await fetch('/api/admin/combos');
             if (response.ok) {
                 const data = await response.json();
-                setProducts(data.data || []);
+                setCombos(data.data || []);
             } else {
-                setMessage('Error al cargar productos');
+                setMessage('Error al cargar combos');
             }
         } catch (error) {
             setMessage(`Error: ${error.message}`);
@@ -37,61 +35,50 @@ export default function AdminProductList() {
         }
     };
 
-    // Eliminar producto
     const handleDelete = async (id) => {
-        if (!confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+        if (!confirm('¿Estás seguro de que quieres eliminar este combo?')) {
             return;
         }
 
         try {
-            const response = await fetch(`/api/admin/products?id=${id}`, {
+            const response = await fetch(`/api/admin/combos?id=${id}`, {
                 method: 'DELETE'
             });
 
             if (response.ok) {
-                setMessage('Producto eliminado');
-                fetchProducts();
+                setMessage('Combo eliminado');
+                fetchCombos();
             } else {
-                setMessage('Error al eliminar producto');
+                setMessage('Error al eliminar combo');
             }
         } catch (error) {
             setMessage(`Error: ${error.message}`);
         }
     };
 
-    // Logout
     const handleLogout = () => {
         router.push('/admin');
         router.refresh();
     };
 
-    // Filtrar productos
-    const filteredProducts = products.filter(p => {
-        const matchesSearch = p.nombre.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = !filterCategory || p.categoria === filterCategory;
-        return matchesSearch && matchesCategory;
-    });
+    const filteredCombos = combos.filter(c =>
+        c.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-    // Obtener categorías únicas
-    const categories = [...new Set(products.map(p => p.categoria))].sort();
-
-    if (loading && products.length === 0) {
-        return <div className={styles.loading}>Cargando productos...</div>;
+    if (loading && combos.length === 0) {
+        return <div className={styles.loading}>Cargando combos...</div>;
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.header}>
                 <div>
-                    <h1>📦 Gestión de Productos</h1>
-                    <p className={styles.subtitle}>Administra precios, descripciones, imágenes y disponibilidad</p>
+                    <h1>🍱 Gestión de Combos</h1>
+                    <p className={styles.subtitle}>Administra precios, descripciones, items e imágenes</p>
                 </div>
-                <div style={{display: 'flex', gap: '0.5rem'}}>
-                    <button onClick={() => router.push('/admin/combos')} className={styles.combosBtn} title="Gestionar Combos">
-                        🍱 Combos
-                    </button>
-                    <button onClick={() => router.push('/admin/categories')} className={styles.categoriesBtn} title="Gestionar Categorías">
-                        🗂️ Categorías
+                <div className={styles.headerActions}>
+                    <button onClick={() => router.push('/admin/dashboard')} className={styles.backBtn}>
+                        ← Volver
                     </button>
                     <button onClick={handleLogout} className={styles.logoutBtn}>
                         🚪 Salir
@@ -107,21 +94,21 @@ export default function AdminProductList() {
             )}
 
             {showForm && !editingId ? (
-                <ProductEditor
+                <ComboEditor
                     onSave={() => {
                         setShowForm(false);
-                        fetchProducts();
+                        fetchCombos();
                     }}
                     onCancel={() => setShowForm(false)}
                 />
             ) : null}
 
             {editingId ? (
-                <ProductEditor
-                    product={products.find(p => p.id === editingId)}
+                <ComboEditor
+                    combo={combos.find(c => c.id === editingId)}
                     onSave={() => {
                         setEditingId(null);
-                        fetchProducts();
+                        fetchCombos();
                     }}
                     onCancel={() => setEditingId(null)}
                 />
@@ -132,7 +119,7 @@ export default function AdminProductList() {
                             className={styles.createBtn}
                             onClick={() => setShowForm(!showForm)}
                         >
-                            + Crear Nuevo Producto
+                            + Crear Nuevo Combo
                         </button>
 
                         <div className={styles.filters}>
@@ -143,17 +130,6 @@ export default function AdminProductList() {
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className={styles.searchInput}
                             />
-
-                            <select
-                                value={filterCategory}
-                                onChange={(e) => setFilterCategory(e.target.value)}
-                                className={styles.filterSelect}
-                            >
-                                <option value="">Todas las categorías</option>
-                                {categories.map(cat => (
-                                    <option key={cat} value={cat}>{cat}</option>
-                                ))}
-                            </select>
                         </div>
                     </div>
 
@@ -163,40 +139,38 @@ export default function AdminProductList() {
                                 <tr>
                                     <th>ID</th>
                                     <th>Nombre</th>
-                                    <th>Categoría</th>
                                     <th>Precio</th>
-                                    <th>Disponible</th>
+                                    <th>Destacado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {filteredProducts.length > 0 ? (
-                                    filteredProducts.map(product => (
-                                        <tr key={product.id}>
-                                            <td>{product.id}</td>
+                                {filteredCombos.length > 0 ? (
+                                    filteredCombos.map(combo => (
+                                        <tr key={combo.id}>
+                                            <td>{combo.id}</td>
                                             <td className={styles.nameCell}>
-                                                {product.nombre}
-                                                {product.descripcion && (
-                                                    <small>{product.descripcion.substring(0, 50)}...</small>
+                                                {combo.nombre}
+                                                {(combo.items || combo.descripcion) && (
+                                                    <small>{(combo.items || combo.descripcion).substring(0, 60)}...</small>
                                                 )}
                                             </td>
-                                            <td>{product.categoria}</td>
-                                            <td>${product.precio}</td>
+                                            <td>${combo.precio}</td>
                                             <td>
-                                                <span className={product.disponible ? styles.available : styles.unavailable}>
-                                                    {product.disponible ? 'Sí' : 'No'}
+                                                <span className={combo.destacado ? styles.available : styles.unavailable}>
+                                                    {combo.destacado ? 'Sí' : 'No'}
                                                 </span>
                                             </td>
                                             <td className={styles.actions}>
                                                 <button
-                                                    onClick={() => setEditingId(product.id)}
+                                                    onClick={() => setEditingId(combo.id)}
                                                     className={styles.editBtn}
                                                     title="Editar"
                                                 >
                                                     ✏️
                                                 </button>
                                                 <button
-                                                    onClick={() => handleDelete(product.id)}
+                                                    onClick={() => handleDelete(combo.id)}
                                                     className={styles.deleteBtn}
                                                     title="Eliminar"
                                                 >
@@ -207,8 +181,8 @@ export default function AdminProductList() {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="6" className={styles.noResults}>
-                                            No se encontraron productos
+                                        <td colSpan="5" className={styles.noResults}>
+                                            No se encontraron combos
                                         </td>
                                     </tr>
                                 )}
@@ -217,7 +191,7 @@ export default function AdminProductList() {
                     </div>
 
                     <div className={styles.summary}>
-                        Total: {filteredProducts.length} productos
+                        Total: {filteredCombos.length} combos
                     </div>
                 </>
             )}

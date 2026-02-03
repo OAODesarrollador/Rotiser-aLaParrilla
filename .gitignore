@@ -43,3 +43,6 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# local database - TEMPORARILY included for Turso migration
+# !local.db
