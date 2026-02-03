@@ -1,0 +1,151 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.form {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+}
+
+.group {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 12px;
+    background: var(--background);
+    border: 1px solid var(--surface-highlight);
+    color: white;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.radioGroup {
+    display: flex;
+    gap: 1rem;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px;
+    background: var(--surface-highlight);
+    border-radius: 8px;
+    flex: 1;
+}
+
+.summary {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--surface-highlight);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.total {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-top: 1rem;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+}
+
+.submitBtn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.success {
+    text-align: center;
+    padding: 2rem;
+    background: var(--surface);
+    border-radius: var(--radius);
+}
+
+.whatsappBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.whatsappBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+}
+
+.cancelBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #dc3545;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cancelBtn:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.3);
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
