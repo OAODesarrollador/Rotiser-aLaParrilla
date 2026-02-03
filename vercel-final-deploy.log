@@ -1,0 +1,23 @@
+Vercel CLI 50.9.6
+Retrieving projectÔÇª
+Deploying okyformosa2s-projects/yes
+Uploading [--------------------] (0.0B/837B)
+Uploading [==================--] (755.0B/837B)
+Uploading [====================] (837.0B/837B)
+Inspect: https://vercel.com/okyformosa2s-projects/yes/3gtuKd871JVeUf6x9RQZV3T55dc9 [3s]
+Production: https://yes-99d24yd0f-okyformosa2s-projects.vercel.app [3s]
+Building...
+Building: Running build in Washington, D.C., USA (East) ÔÇô iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Previous build caches not available.
+Building: Downloading 86 deployment files...
+Building: Running "vercel build"
+Building: Vercel CLI 50.9.6
+Building: Vercel CLI 50.9.6
+Building: Installing dependencies...
+Building: npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+Building: npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+Building: npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+Error: Command "n" exited with 127
+https://yes-99d24yd0f-okyformosa2s-projects.vercel.app

@@ -1,0 +1,93 @@
+Vercel CLI 50.9.6
+Retrieving projectÔÇª
+Deploying okyformosa2s-projects/yes
+Uploading [--------------------] (0.0B/1.2KB)
+Uploading [====================] (1.2KB/1.2KB)
+Inspect: https://vercel.com/okyformosa2s-projects/yes/FtsukNnzU5Bc5QDWJnZMtLaPjdWw [3s]
+Production: https://yes-4cao8nlx0-okyformosa2s-projects.vercel.app [3s]
+Building...
+Building...
+Building: Running build in Washington, D.C., USA (East) ÔÇô iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Previous build caches not available.
+Building: Downloading 88 deployment files...
+Building: Running "vercel build"
+Building: Vercel CLI 50.9.6
+Building: Running "install" command: `npm install`...
+Building: npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+Building: npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+Building: npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+Building: npm warn deprecated next@14.2.14: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
+Building: added 148 packages, and audited 149 packages in 12s
+Building: 36 packages are looking for funding
+Building: run `npm fund` for details
+Building: 5 vulnerabilities (4 moderate, 1 critical)
+Building: To address issues that do not require attention, run:
+Building: npm audit fix
+Building: To address all issues (including breaking changes), run:
+Building: npm audit fix --force
+Building: Run `npm audit` for details.
+Building: Detected Next.js version: 14.2.14
+Building: Running "npm run build"
+Building: > la-parrilla-app@0.1.0 build
+Building: > next build
+Building: Attention: Next.js now collects completely anonymous telemetry regarding usage.
+Building: This information is used to shape Next.js' roadmap and prioritize features.
+Building: You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+Building: https://nextjs.org/telemetry
+Building: Ôû▓ Next.js 14.2.14
+Building: Creating an optimized production build ...
+Building: Ô£ô Compiled successfully
+Building: Linting and checking validity of types ...
+Building: Collecting page data ...
+Building: Generating static pages (0/14) ...
+Building: Generating static pages (3/14)
+Building: image proxy error B [Error]: Dynamic server usage: Route /api/image/proxy couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+Building: at V (/vercel/path0/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21777)
+Building: at Object.get (/vercel/path0/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29137)
+Building: at u (/vercel/path0/.next/server/app/api/image/proxy/route.js:1:534)
+Building: at /vercel/path0/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:36963
+Building: at /vercel/path0/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+Building: at NoopContextManager.with (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+Building: at ContextAPI.with (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+Building: at NoopTracer.startActiveSpan (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+Building: at ProxyTracer.startActiveSpan (/vercel/path0/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+Building: at /vercel/path0/node_modules/next/dist/server/lib/trace/tracer.js:122:103 {
+Building: description: "Route /api/image/proxy couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+Building: digest: 'DYNAMIC_SERVER_USAGE'
+Building: }
+Building: Generating static pages (6/14)
+Building: Generating static pages (10/14)
+Building: Ô£ô Generating static pages (14/14)
+Building: Finalizing page optimization ...
+Building: Collecting build traces ...
+Building: Route (app)                              Size     First Load JS
+Building: Ôöî Ôùï /                                    3.49 kB          98 kB
+Building: Ôö£ Ôùï /_not-found                          873 B            88 kB
+Building: Ôö£ Ôùï /admin                               1.22 kB        88.4 kB
+Building: Ôö£ Ôùï /admin/categories                    1.45 kB        88.6 kB
+Building: Ôö£ ãÆ /admin/dashboard                     3.35 kB        90.5 kB
+Building: Ôö£ ãÆ /api/admin/auth                      0 B                0 B
+Building: Ôö£ ãÆ /api/admin/categories                0 B                0 B
+Building: Ôö£ ãÆ /api/admin/products                  0 B                0 B
+Building: Ôö£ ãÆ /api/image/proxy                     0 B                0 B
+Building: Ôö£ ãÆ /api/orders                          0 B                0 B
+Building: Ôöö Ôùï /checkout                            2.94 kB        90.1 kB
+Building: + First Load JS shared by all            87.2 kB
+Building: Ôö£ chunks/117-e9b4af964bf1b34f.js       31.6 kB
+Building: Ôö£ chunks/fd9d1056-26b1e8f4e6a18115.js  53.6 kB
+Building: Ôöö other shared chunks (total)          1.93 kB
+Building: Ôùï  (Static)   prerendered as static content
+Building: ãÆ  (Dynamic)  server-rendered on demand
+Building: Traced Next.js server files in: 32.093ms
+Building: Created all serverless functions in: 247.441ms
+Building: Collected static files (public/, static/, .next/static): 4.529ms
+Building: Build Completed in /vercel/output [33s]
+Building: Deploying outputs...
+Building: Deployment completed
+Building: Creating build cache...
+[2K[1A[2K[GProduction: https://yes-4cao8nlx0-okyformosa2s-projects.vercel.app [52s]
+Completing...
+Aliased: https://yes-seven-roan.vercel.app [52s]
+https://yes-4cao8nlx0-okyformosa2s-projects.vercel.app
